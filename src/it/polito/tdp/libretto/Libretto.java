@@ -18,9 +18,16 @@ public class Libretto {
 	/**
 	 * Aggiunte un nuovo voto al libretto
 	 * @param v il {@link Voto} da aggiungere
+	 *@return {@code true} 
 	 */
-	public void add(Voto v) { //più efficiente perchè se cambia struttura voto qui rimane invariato.
-		voti.add(v);
+	public boolean add(Voto v) { //più efficiente perchè se cambia struttura voto qui rimane invariato.
+		if(!this.esisteGiaVoto(v) && !this.votoConflitto(v)) {
+			voti.add(v);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**
@@ -67,8 +74,28 @@ public class Libretto {
 			return false;
 		else 
 			return (v.getPunti() == this.voti.get(pos).getPunti());
-			
-		
 		
 	}
+	
+	/**
+	 * 
+	 * @param v
+	 * @return {@code true} se esiste e ha un punteggio diverso 
+	 * 			{@code false} se non esiste oppure esiste e ha lo stesso punteggio
+	 */
+	public boolean votoConflitto(Voto v) {
+		int pos = this.voti.indexOf(v);
+		if(pos==-1)
+			return false;
+		else 
+			return (v.getPunti() != this.voti.get(pos).getPunti());
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Libretto [voti=" + voti + "]";
+	}
+	
+	
 }
