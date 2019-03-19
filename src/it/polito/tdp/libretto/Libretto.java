@@ -47,10 +47,28 @@ public class Libretto {
 	 */
 	
 	public Voto cercaEsame(String nomeEsame) {
-		for(Voto v:this.voti) {
-			if(v.getCorso().compareTo(nomeEsame)==0)
-				return v;
-		}
-		return null;
+		Voto voto = new Voto(0,nomeEsame,null); //è incompleto mi serve solo per l'indexof
+		int pos = this.voti.indexOf(voto);
+		if(pos == -1)
+			return null;
+		else
+			return this.voti.get(pos);
+	}
+	
+	/**
+	 * dato un {@link Voto} determina se esiste già un voto con uguale corso e uguale punteggio
+	 * @param v
+	 * @return {@code true} se ha trovato un corso e punteggio uguali, {@code false} se non ha trovato il corso
+	 * o l'ha trovato con un voto diverso.
+	 */
+	public boolean esisteGiaVoto(Voto v) {
+		int pos = this.voti.indexOf(v);
+		if(pos==-1)
+			return false;
+		else 
+			return (v.getPunti() == this.voti.get(pos).getPunti());
+			
+		
+		
 	}
 }
